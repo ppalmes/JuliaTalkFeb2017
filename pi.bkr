@@ -1,0 +1,227 @@
+{
+    "beaker": "2",
+    "evaluators": [
+        {
+            "name": "HTML",
+            "plugin": "HTML",
+            "view": {
+                "cm": {
+                    "mode": "htmlmixed"
+                }
+            }
+        },
+        {
+            "name": "JavaScript",
+            "plugin": "JavaScript",
+            "view": {
+                "cm": {
+                    "mode": "javascript",
+                    "background": "#FFE0F0"
+                }
+            },
+            "languageVersion": "ES2015"
+        },
+        {
+            "name": "Julia",
+            "plugin": "Julia",
+            "setup": "",
+            "view": {
+                "cm": {
+                    "mode": "julia"
+                }
+            }
+        },
+        {
+            "name": "IPython",
+            "plugin": "IPython",
+            "setup": "%matplotlib inline\nimport numpy\nimport matplotlib\nfrom matplotlib import pylab, mlab, pyplot\nnp = numpy\nplt = pyplot\nfrom IPython.display import display\nfrom IPython.core.pylabtools import figsize, getfigs\nfrom pylab import *\nfrom numpy import *\n",
+            "view": {
+                "cm": {
+                    "mode": "python"
+                }
+            }
+        },
+        {
+            "name": "R",
+            "plugin": "R",
+            "view": {
+                "cm": {
+                    "mode": "r"
+                }
+            }
+        }
+    ],
+    "cells": [
+        {
+            "id": "codeSFMQZF",
+            "type": "code",
+            "evaluator": "R",
+            "input": {
+                "body": [
+                    "inside <- function() {",
+                    "    x=runif(1)",
+                    "    y=runif(1)",
+                    "    if (x^2+y^2 < 1) {",
+                    "        return(1)",
+                    "    } else {",
+                    "        return(0)",
+                    "    }",
+                    "}",
+                    "",
+                    "pi <- function(n) {",
+                    "    s=0",
+                    "    for(i in 1:n) {",
+                    "        s = s+ inside()",
+                    "    }",
+                    "    return(4*s/n)",
+                    "}",
+                    "",
+                    "ptm <- proc.time()",
+                    "print(pi(10^6))",
+                    "proc.time() - ptm"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "[1] 3.142876\n"
+                        }
+                    ],
+                    "payload": "   user  system elapsed \n  5.956   0.063   6.122 "
+                },
+                "selectedType": "Results",
+                "pluginName": "R",
+                "shellId": "4e273fce-1157-461f-a2f2-d1f10fbe0e24",
+                "elapsedTime": 6637,
+                "dataresult": "ERROR: invalid object type proc_time",
+                "height": 90
+            },
+            "evaluatorReader": true,
+            "lineCount": 21
+        },
+        {
+            "id": "codeO7rrk1",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "import random as rand",
+                    "import time",
+                    "",
+                    "def isInside():",
+                    "    x = rand.random()",
+                    "    y = rand.random()",
+                    "    if x**2 + y**2 < 1:",
+                    "        return 1",
+                    "    else:",
+                    "        return 0",
+                    "",
+                    "",
+                    "def ppi(n):",
+                    "    s = 0.0",
+                    "    for i in range(n):",
+                    "        s += isInside()",
+                    "    return 4*s/n",
+                    "",
+                    "n=10**3",
+                    "tstart = time.time()",
+                    "print \"Pi =\",ppi(n)",
+                    "tstop = time.time()",
+                    "print(tstop - tstart)",
+                    "       "
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "Results",
+                "pluginName": "IPython",
+                "shellId": "AA8758A3B6F548B69C5B67F77390A193",
+                "elapsedTime": 227,
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": " Pi = 3.088\n0.000821828842163\n"
+                        }
+                    ]
+                },
+                "height": 71
+            },
+            "evaluatorReader": true,
+            "lineCount": 24
+        },
+        {
+            "id": "codeiLI1n5",
+            "type": "code",
+            "evaluator": "Julia",
+            "input": {
+                "body": [
+                    "function inside(x,y) ",
+                    "    if x^2+y^2<1 ",
+                    "        return 1",
+                    "    else",
+                    "        return 0",
+                    "    end",
+                    "end",
+                    "",
+                    "function ppi(n)",
+                    "    s=0",
+                    "    for i=1:n",
+                    "        x,y = rand(2)",
+                    "        s += inside(x,y)",
+                    "    end",
+                    "    4.0 * s/n",
+                    "end",
+                    ""
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "<div class=\"output_subarea output_text\"><pre>ppi (generic function with 1 method)</pre></div>",
+                "selectedType": "Html",
+                "pluginName": "Julia",
+                "shellId": "A23F59A59F244439B4FD008BE8C11385",
+                "elapsedTime": 265,
+                "height": 53
+            },
+            "evaluatorReader": true,
+            "lineCount": 17
+        },
+        {
+            "id": "codeQ7uwPd",
+            "type": "code",
+            "evaluator": "Julia",
+            "input": {
+                "body": [
+                    "@time(ppi(10^8))"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "  6.106904 seconds (100.00 M allocations: 8.941 GB, 7.52% gc time)\n"
+                        }
+                    ],
+                    "payload": "<div class=\"output_subarea output_text\"><pre>3.14139228</pre></div>"
+                },
+                "selectedType": "Results",
+                "pluginName": "Julia",
+                "shellId": "A23F59A59F244439B4FD008BE8C11385",
+                "elapsedTime": 6262,
+                "height": 71
+            },
+            "evaluatorReader": true,
+            "lineCount": 1
+        }
+    ],
+    "namespace": {}
+}
