@@ -1,5 +1,5 @@
-JuliaHTML
-=========
+Julia Talk on Meta-Modeling, Meta-Plotting, and Direct Feedback Alignment
+=========================================================================
 
 ### Overview
 
