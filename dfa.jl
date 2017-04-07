@@ -83,12 +83,14 @@ end
     return (outputs,errors)
 end
 
+# Example: XOR problem
 
 x = [1 1 ; 0 1 ; 1 0 ; 0 0]'
 y = [0 1 1 0]
 n_hidden = 15; # Number of hidden units
 max_iter = 500; #Number of learning steps
 trials = 30;
+
 dfa_err=@parallel (hcat) for _=1:trials
     (_,dfa_errors) = dfa(x,y,n_hidden,max_iter)
     dfa_errors
@@ -100,29 +102,30 @@ bp_err = @parallel (hcat) for _=1:trials
     bp_errors
 end
 (bp_yhat,_) = bp(x,y,n_hidden,max_iter)
+
 ifa_err=@parallel (hcat) for _=1:trials
     (_,ifa_errors) = ifa(x,y,n_hidden,max_iter)
     ifa_errors
 end
 (ifa_yhat,_) = ifa(x,y,n_hidden,max_iter);
+
 fa_err=@parallel (hcat) for _=1:trials
     (_,fa_errors) = fa(x,y,n_hidden,max_iter)
     fa_errors
 end
 (fa_yhat,_) = fa(x,y,n_hidden,max_iter);
+
 using Plots
 l = @layout [
     a b
     c d
     e f
 ]
-unicodeplots()
-#init_notebook(true)
+gr()
 p1=plot(dfa_yhat',label=["1,1" "0,1" "1,0" "0,0"],title="DFA")
 p2=plot(ifa_yhat',label=["1,1" "0,1" "1,0" "0,0"],title="IFA")
 p3=plot(fa_yhat',label=["1,1" "0,1" "1,0" "0,0"],title="FA")
 p4=plot(bp_yhat',label=["1,1" "0,1" "1,0" "0,0"],title="BP")
 p5=plot([dfa_err[:,1] ifa_err[:,1] fa_err[:,1] bp_err[:,1]],label=["DFA" "IFA" "FA" "BP"],title="First Trial Error")
 p6=plot([mean(dfa_err,2) mean(ifa_err,2) mean(fa_err,2) mean(bp_err,2)],label=["DFA" "IFA" "FA" "BP"],title="Mean Trials Error")
-plot(p1,p2,p3,p4,p5,p6,layout=l)
-#plot(p1,p2,p3,p4,p5,p6,size=(900,900),layout=l)
+plot(p1,p2,p3,p4,p5,p6,size=(900,900),layout=l)
