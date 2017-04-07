@@ -6,7 +6,7 @@
             "plugin": "HTML",
             "view": {
                 "cm": {
-                    "mode": "htmlmixed"
+                    "mode": "smartHTMLMode"
                 }
             }
         },
@@ -74,34 +74,22 @@
                     "        s = s+ inside()",
                     "    }",
                     "    return(4*s/n)",
-                    "}",
-                    "",
-                    "ptm <- proc.time()",
-                    "print(pi(10^6))",
-                    "proc.time() - ptm"
+                    "}"
                 ]
             },
             "output": {
                 "state": {},
-                "result": {
-                    "type": "Results",
-                    "outputdata": [
-                        {
-                            "type": "out",
-                            "value": "[1] 3.142876\n"
-                        }
-                    ],
-                    "payload": "   user  system elapsed \n  5.956   0.063   6.122 "
-                },
-                "selectedType": "Results",
+                "result": "",
+                "selectedType": "Text",
                 "pluginName": "R",
-                "shellId": "4e273fce-1157-461f-a2f2-d1f10fbe0e24",
-                "elapsedTime": 6637,
-                "dataresult": "ERROR: invalid object type proc_time",
-                "height": 90
+                "shellId": "ae037d6b-aaa5-4482-b61b-8a5c84dca7c8",
+                "elapsedTime": 90,
+                "dataresult": "ERROR: invalid object type function",
+                "height": 51
             },
             "evaluatorReader": true,
-            "lineCount": 21
+            "lineCount": 17,
+            "isError": false
         },
         {
             "id": "codeO7rrk1",
@@ -109,9 +97,12 @@
             "evaluator": "IPython",
             "input": {
                 "body": [
+                    "from numba import jit",
+                    "",
                     "import random as rand",
                     "import time",
                     "",
+                    "@jit",
                     "def isInside():",
                     "    x = rand.random()",
                     "    y = rand.random()",
@@ -120,40 +111,71 @@
                     "    else:",
                     "        return 0",
                     "",
-                    "",
                     "def ppi(n):",
                     "    s = 0.0",
                     "    for i in range(n):",
                     "        s += isInside()",
-                    "    return 4*s/n",
-                    "",
-                    "n=10**3",
-                    "tstart = time.time()",
-                    "print \"Pi =\",ppi(n)",
-                    "tstop = time.time()",
-                    "print(tstop - tstart)",
-                    "       "
+                    "    return 4*s/n"
                 ]
             },
             "output": {
                 "state": {},
-                "selectedType": "Results",
+                "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "AA8758A3B6F548B69C5B67F77390A193",
-                "elapsedTime": 227,
+                "shellId": "37633BFD318F4BD9B06FC149F1A87411",
+                "elapsedTime": 304,
+                "height": 81,
+                "result": {
+                    "type": "BeakerDisplay",
+                    "innertype": "Error",
+                    "object": [
+                        "No module named numba",
+                        "No module named numba<br><span  class=\"ansired\"></span><br><span  class=\"ansired\">ImportError</span>Traceback (most recent call last)<br><span  class=\"ansigreen\">&lt;ipython-input-1-05e344be2ee1&gt;</span> in <span  class=\"ansicyan\">&lt;module&gt;<span  class=\"ansiblue\">()</span>\n<span  class=\"ansigreen\">----&gt; 1<span  class=\"ansired\"> <span  class=\"ansigreen\">from</span> numba <span  class=\"ansigreen\">import</span> jit<span  class=\"ansiblue\"></span>\n<span  class=\"ansigreen\">      2</span> <span  class=\"ansiblue\"></span>\n<span  class=\"ansigreen\">      3</span> <span  class=\"ansigreen\">import</span> random <span  class=\"ansigreen\">as</span> rand<span  class=\"ansiblue\"></span>\n<span  class=\"ansigreen\">      4</span> <span  class=\"ansigreen\">import</span> time<span  class=\"ansiblue\"></span>\n<span  class=\"ansigreen\">      5</span> <span  class=\"ansiblue\"></span>\n<br><span  class=\"ansired\">ImportError</span>: No module named numba"
+                    ]
+                }
+            },
+            "evaluatorReader": true,
+            "lineCount": 19,
+            "isError": true
+        },
+        {
+            "id": "code0JOj8r",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "n=10**7",
+                    "",
+                    "tstart = time.time()",
+                    "print \"Pi =\",ppi(n)",
+                    "tstop = time.time()",
+                    "print(tstop - tstart)"
+                ]
+            },
+            "output": {
+                "state": {},
                 "result": {
                     "type": "Results",
                     "outputdata": [
                         {
                             "type": "out",
-                            "value": " Pi = 3.088\n0.000821828842163\n"
+                            "value": " Pi ="
+                        },
+                        {
+                            "type": "out",
+                            "value": " 3.1421472\n5.46615791321\n"
                         }
                     ]
                 },
-                "height": 71
+                "selectedType": "Results",
+                "pluginName": "IPython",
+                "shellId": "37633BFD318F4BD9B06FC149F1A87411",
+                "elapsedTime": 5725,
+                "height": 87
             },
             "evaluatorReader": true,
-            "lineCount": 24
+            "lineCount": 6,
+            "isError": false
         },
         {
             "id": "codeiLI1n5",
@@ -176,29 +198,40 @@
                     "        s += inside(x,y)",
                     "    end",
                     "    4.0 * s/n",
-                    "end",
-                    ""
+                    "end"
                 ]
             },
             "output": {
                 "state": {},
-                "result": "<div class=\"output_subarea output_text\"><pre>ppi (generic function with 1 method)</pre></div>",
-                "selectedType": "Html",
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "err",
+                            "value": "WARNING: Method definition inside(Any, Any) in module Main at In[2]:2 overwritten at In[8]:2.\nWARNING: Method definition ppi(Any) in module Main at In[2]:10 overwritten at In[8]:10.\n"
+                        }
+                    ],
+                    "payload": "<div class=\"output_subarea output_text\"><pre>ppi (generic function with 1 method)</pre></div>"
+                },
+                "selectedType": "Results",
                 "pluginName": "Julia",
-                "shellId": "A23F59A59F244439B4FD008BE8C11385",
-                "elapsedTime": 265,
-                "height": 53
+                "shellId": "4EF5D485921F40FF925E4638C2740D6B",
+                "elapsedTime": 296,
+                "height": 87
             },
             "evaluatorReader": true,
-            "lineCount": 17
+            "lineCount": 16,
+            "isError": false
         },
         {
-            "id": "codeQ7uwPd",
+            "id": "codeneNPfa",
             "type": "code",
-            "evaluator": "Julia",
+            "evaluator": "R",
             "input": {
                 "body": [
-                    "@time(ppi(10^8))"
+                    "ptm <- proc.time()",
+                    "print(pi(10^6))",
+                    "proc.time() - ptm"
                 ]
             },
             "output": {
@@ -208,19 +241,120 @@
                     "outputdata": [
                         {
                             "type": "out",
-                            "value": "  6.106904 seconds (100.00 M allocations: 8.941 GB, 7.52% gc time)\n"
+                            "value": "[1] 3.142296\n"
                         }
                     ],
-                    "payload": "<div class=\"output_subarea output_text\"><pre>3.14139228</pre></div>"
+                    "payload": "   user  system elapsed \n  6.074   0.154   6.362 "
+                },
+                "selectedType": "Results",
+                "pluginName": "R",
+                "shellId": "ae037d6b-aaa5-4482-b61b-8a5c84dca7c8",
+                "elapsedTime": 6891,
+                "dataresult": "ERROR: invalid object type proc_time",
+                "height": 90
+            },
+            "evaluatorReader": true,
+            "lineCount": 3,
+            "isError": false
+        },
+        {
+            "id": "codeb8wq56",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "n=10**7",
+                    "tstart = time.time()",
+                    "print \"Pi =\",ppi(n)",
+                    "tstop = time.time()",
+                    "print(tstop - tstart)     "
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "Pi ="
+                        },
+                        {
+                            "type": "out",
+                            "value": " 3.1422696\n5.45213103294\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "IPython",
+                "shellId": "132B53F398D746DB8B6474A94EE62BAC",
+                "elapsedTime": 5708,
+                "height": 87
+            },
+            "evaluatorReader": true,
+            "lineCount": 5,
+            "isError": false
+        },
+        {
+            "id": "codeR1yBhF",
+            "type": "code",
+            "evaluator": "Julia",
+            "input": {
+                "body": [
+                    "@time(ppi(10^7))"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "  0.699281 seconds (10.00 M allocations: 915.528 MB, 9.04% gc time)\n"
+                        }
+                    ],
+                    "payload": "<div class=\"output_subarea output_text\"><pre>3.141764</pre></div>"
                 },
                 "selectedType": "Results",
                 "pluginName": "Julia",
-                "shellId": "A23F59A59F244439B4FD008BE8C11385",
-                "elapsedTime": 6262,
+                "shellId": "4EF5D485921F40FF925E4638C2740D6B",
+                "elapsedTime": 956,
                 "height": 71
             },
             "evaluatorReader": true,
-            "lineCount": 1
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "code8jpaX3",
+            "type": "code",
+            "evaluator": "Julia",
+            "input": {
+                "body": [
+                    "@code_native(ppi(10^8))"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "\t.section\t__TEXT,__text,regular,pure_instructions\nFilename: In[8]\n\tpushq\t%rbp\n\tmovq\t%rsp, %rbp\n\tpushq\t%r15\n\tpushq\t%r14\n\tpushq\t%r13\n\tpushq\t%r12\n\tpushq\t%rbx\n\tsubq\t$72, %rsp\n\tmovq\t%rdi, %r12\n\tmovabsq\t$jl_get_ptls_states_fast, %rax\n\tcallq\t*%rax\n\tmovq\t$0, -48(%rbp)\n\tmovq\t$0, -56(%rbp)\n\tmovq\t$4, -72(%rbp)\n\tmovq\t(%rax), %rcx\n\tmovq\t%rcx, -64(%rbp)\n\tleaq\t-72(%rbp), %rcx\n\tmovq\t%rcx, (%rax)\n\txorpd\t%xmm0, %xmm0\nSource line: 11\n\ttestq\t%r12, %r12\n\tjle\tL269\n\tmovq\t%rax, -104(%rbp)\n\tmovabsq\t$jl_new_array, %r13\n\txorl\t%r15d, %r15d\nSource line: 300\n\tleaq\t228816416(%r13), %rax\n\tmovq\t%rax, -80(%rbp)\n\tleaq\t371807760(%r13), %rax\nSource line: 12\n\tmovq\t%rax, -88(%rbp)\n\tleaq\t270099008(%r13), %rbx\n\tleaq\t270161376(%r13), %r14\n\tmovq\t%r12, -96(%rbp)\n\tnopl\t(%rax)\nSource line: 300\nL144:\n\tmovq\t-80(%rbp), %rdi\n\tmovq\t-88(%rbp), %rsi\n\tcallq\t*%r13\n\tmovq\t%rax, -56(%rbp)\nSource line: 12\n\tmovq\t8(%rax), %rdx\n\tmovq\t%rbx, %rdi\n\tmovq\t%rax, %rsi\n\tmovq\t%r14, %rcx\n\tmovabsq\t$\"rand!\", %rax\n\tcallq\t*%rax\n\tmovq\t%rax, -48(%rbp)\n\tmovq\t8(%rax), %rcx\n\ttestq\t%rcx, %rcx\n\tje\tL303\n\tcmpq\t$1, %rcx\n\tjbe\tL341\n\tmovq\t(%rax), %rax\n\tmovsd\t(%rax), %xmm0           ## xmm0 = mem[0],zero\n\tmovsd\t8(%rax), %xmm1          ## xmm1 = mem[0],zero\nSource line: 13\n\tmovabsq\t$inside, %rax\n\tcallq\t*%rax\n\taddq\t%rax, %r15\nSource line: 11\n\tdecq\t%r12\n\tjne\tL144\n\txorps\t%xmm0, %xmm0\n\tcvtsi2sdq\t%r15, %xmm0\n\tmovabsq\t$4579745472, %rax       ## imm = 0x110F95EC0\n\tmulsd\t(%rax), %xmm0\n\tmovq\t-96(%rbp), %r12\n\tmovq\t-104(%rbp), %rax\nSource line: 15\nL269:\n\txorps\t%xmm1, %xmm1\n\tcvtsi2sdq\t%r12, %xmm1\n\tdivsd\t%xmm1, %xmm0\n\tmovq\t-64(%rbp), %rcx\n\tmovq\t%rcx, (%rax)\n\tleaq\t-40(%rbp), %rsp\n\tpopq\t%rbx\n\tpopq\t%r12\n\tpopq\t%r13\n\tpopq\t%r14\n\tpopq\t%r15\n\tpopq\t%rbp\n\tretq\nSource line: 12\nL303:\n\tmovq\t%rsp, %rcx\n\tleaq\t-16(%rcx), %rsi\n\tmovq\t%rsi, %rsp\n\tmovq\t$1, -16(%rcx)\n\tmovabsq\t$jl_bounds_error_ints, %rcx\n\tmovl\t$1, %edx\n\tmovq\t%rax, %rdi\n\tcallq\t*%rcx\nL341:\n\tmovq\t%rsp, %rcx\n\tleaq\t-16(%rcx), %rsi\n\tmovq\t%rsi, %rsp\n\tmovq\t$2, -16(%rcx)\n\tmovabsq\t$jl_bounds_error_ints, %rcx\n\tmovl\t$1, %edx\n\tmovq\t%rax, %rdi\n\tcallq\t*%rcx\n\tnopl\t(%rax,%rax)\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Julia",
+                "shellId": "4EF5D485921F40FF925E4638C2740D6B",
+                "elapsedTime": 298,
+                "height": 1751
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
         }
     ],
     "namespace": {}

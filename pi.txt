@@ -1,0 +1,70 @@
+## R
+inside <- function() {
+    x=runif(1)
+    y=runif(1)
+    if (x^2+y^2 < 1) {
+        return(1)
+    } else {
+        return(0)
+    }
+}
+pi <- function(n) {
+    s=0
+    for(i in 1:n) {
+        s = s+ inside()
+    }
+    return(4*s/n)
+}
+ptm <- proc.time()
+print(pi(10^6))
+proc.time() - ptm
+
+## Python
+
+from numba import jit
+
+import random as rand
+import time
+
+#@jit
+
+def isInside():
+    x = rand.random()
+    y = rand.random()
+    if x**2 + y**2 < 1:
+        return 1
+    else:
+        return 0
+
+
+def ppi(n):
+    s = 0.0
+    for i in range(n):
+        s = s+isInside()
+return 4*s/n
+
+n=10**8
+
+tstart = time.time()
+print "Pi =",ppi(n)
+tstop = time.time()
+print(tstop - tstart)
+
+## Julia
+
+@everywhere function inside(x,y) 
+    if x^2+y^2<1 
+        return 1
+    else
+        return 0
+    end
+end
+@everywhere function ppi(n)
+    s=@parallel (+) for i=1:n
+        x,y = rand(2)
+        inside(x,y)
+    end
+    4.0 * s/n
+end
+
+@elapsed(ppi(10^8))
