@@ -6,9 +6,9 @@ nprocs()==1 && addprocs()
 @everywhere function initParams(x,y,n_hidden,max_iter)
     w1 = randn(n_hidden,size(x,1))
     w2 = randn(n_hidden,n_hidden)
-    w3 = randn(size(y,1),n_hidden)  
+    w3 = randn(size(y,1),n_hidden)
     B1 = rand(n_hidden,1)
-    B2 = rand(n_hidden,1)      
+    B2 = rand(n_hidden,1)
     errors = zeros(max_iter)
     outputs = zeros(size(y,2),max_iter)
     return (w1,w2,w3,errors,outputs,B1,B2)
@@ -33,7 +33,7 @@ end
 
 @everywhere function bp(x,y,n_hidden,max_iter)
     (w1,w2,w3,errors,outputs,_,_)=initParams(x,y,n_hidden,max_iter)
-    for i = 1:max_iter   
+    for i = 1:max_iter
         (a1,h1,a2,h2,ay,yhat,err) = ffward(x,y,w1,w2,w3)
         δa2 = (w3' * err) .* dlogis(a2)
         δa1 = (w2' * δa2) .* dlogis(a1)
@@ -46,10 +46,10 @@ end
 
 @everywhere function fa(x,y,n_hidden,max_iter)
     (w1,w2,w3,errors,outputs,B1,B2)=initParams(x,y,n_hidden,max_iter)
-    for i = 1:max_iter    
+    for i = 1:max_iter
         (a1,h1,a2,h2,ay,yhat,err) = ffward(x,y,w1,w2,w3)
-        δa2 = (B2.*err) .* dlogis(a2) 
-        δa1 = (B1.*δa2) .* dlogis(a1) 
+        δa2 = (B2.*err) .* dlogis(a2)
+        δa1 = (B1.*δa2) .* dlogis(a1)
         updateW!(w1,w2,w3,x,h1,h2,δa1,δa2,err)
         errors[i] = sum(abs(err))
         outputs[:,i] = yhat
@@ -59,10 +59,10 @@ end
 
 @everywhere function dfa(x,y,n_hidden,max_iter)
     (w1,w2,w3,errors,outputs,B1,B2)=initParams(x,y,n_hidden,max_iter)
-    for i = 1:max_iter    
+    for i = 1:max_iter
         (a1,h1,a2,h2,ay,yhat,err) = ffward(x,y,w1,w2,w3)
-        δa2 = (B2.*err) .* dlogis(a2) 
-        δa1 = (B1.*err) .* dlogis(a1) 
+        δa2 = (B2.*err) .* dlogis(a2)
+        δa1 = (B1.*err) .* dlogis(a1)
         updateW!(w1,w2,w3,x,h1,h2,δa1,δa2,err)
         errors[i] = sum(abs(err))
         outputs[:,i] = yhat
@@ -72,10 +72,10 @@ end
 
 @everywhere function ifa(x,y,n_hidden,max_iter)
     (w1,w2,w3,errors,outputs,B1,_)=initParams(x,y,n_hidden,max_iter)
-    for i = 1:max_iter    
+    for i = 1:max_iter
         (a1,h1,a2,h2,ay,yhat,err) = ffward(x,y,w1,w2,w3)
-        δa1 = (B1.*err) .* dlogis(a1) 
-        δa2 = (w2 * δa1) .* dlogis(a2) 
+        δa1 = (B1.*err) .* dlogis(a1)
+        δa2 = (w2 * δa1) .* dlogis(a2)
         updateW!(w1,w2,w3,x,h1,h2,δa1,δa2,err)
         errors[i] = sum(abs(err))
         outputs[:,i] = yhat
